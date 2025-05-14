@@ -6,116 +6,100 @@ A terminal-based maze game implemented in **Java**, where the player must naviga
 
 ## 🎮 Features
 
-- 🧱 **Maze Generation**  
-  - User-defined size (N x N)  
-  - Random obstacle placement (`1`) based on probability (0.0 - 1.0) also defined by the user
+- 🧱 **Maze Generation**
+  - User-defined size (N x N)
+  - Random obstacle placement (`1`) based on user-defined probability (0.0 - 1.0)
 
-- 🚦 **Start and Goal Setup**  
-  - Define start (`S`) and goal (`G`) positions manually  
-  - Input validation ensures you don’t land on obstacles
+- 🚦 **Start and Goal Setup**
+  - Manual input of start (`S`) and goal (`G`) positions
+  - Validation to prevent placing them on obstacles
 
 - 🧭 **Solving Options**
   1. 📦 **Uniform Cost Search (UCS) Algorithm**
   2. 🧠 **A\* Search Algorithm**
   3. 🔁 **Both UCS and A\***
   4. 👤 **Manual Play Mode**
-     - Move with:
-       - Arrows: `W`, `A`, `S`, `D`
+     - Keyboard controls:
+       - Movement: `W`, `A`, `S`, `D`
        - Diagonals: `I`, `O`, `K`, `L`
-     - Current position shown as `R`
-     - Path traced with `*`
-     - Steps counted 🧮
-     - Quit anytime with `q`
+       - Teleportation with `T` (bottom-left ↔ top-right if allowed)
+       - Quit anytime with `q`
+     - Visual feedback:
+       - Current position → `R`
+       - Path so far → `*`
+     - Step counter 🧮
+     - Instructions appear only once per session
+  5. **Game Mode**
+	- Levels 1-3
+	- Tracking Points
 
-- 🔁 **Replayability**  
-  - Restart with new start/goal in the **same maze**  
-  - Or generate a **completely new maze**
+- 🔁 **Replayability**
+  - Option to restart with new start/goal in same maze
+  - Or generate an entirely new maze
+  - Instructions can be reset programmatically (`resetInstructions()`)
 
 - 📊 **Statistics & Feedback**
-  - Shows:
-    - 🗺️ Solved maze with path
-    - 💰 Total cost
-    - 📦 Number of nodes expanded
-    - ⏱️ Execution time (in ms)
+  - Solved maze with visualized path (`printMazeWithPath(...)`)
+  - Total cost of the path
+  - Number of nodes expanded
+  - Execution time (in milliseconds)
 
-- ☕ **Built in Java**
-
----
-
-## ⚙️ Technical Features & Design Overview
-
-### 🧠 Algorithmic & Functional Highlights
-
-- **🔄 Method Overloading**  
-  The `Maze` class uses multiple overloaded `printMaze(...)` methods to support different display modes:
-  - Maze only  
-  - Maze with start/goal  
-  - Maze with current player position  
-  - Maze with path (for algorithms or manual play)
-
-- **🎯 Search Algorithms**  
-  - **Uniform Cost Search (UCS)** – cost-based optimal pathfinding  
-  - **A\*** – heuristic-based search 
-
-- **⏱️ Performance Metrics**  
-  - Execution time in milliseconds (ms) for both UCS and A*  
-  - Total path cost  
-  - Number of node expansions
-
-- **📥 User Interaction & Input Validation**  
-  - Repeated input prompts until valid values are given  
-  - Validation for:
-    - Maze size  
-    - Obstacle probability  
-    - Start/goal coordinates  
-
-- **🕹️ Player-Controlled Mode**  
-  - Free-form movement via keyboard:
-    - Arrows: `W`, `A`, `S`, `D`  
-    - Diagonal: `I`, `O`, `K`, `L`  
-  - Obstacles and bounds are handled gracefully  
-  - Player path is visualized with `*`, and current position with `R`  
-  - Tracks total number of steps
+- ☕ **Built in Java (CLI)**
 
 ---
 
-### 🧩 Code Structure & Design
+## 🧠 Technical Highlights
 
-- **Modular Design**  
-  - `RobotMaze` handles game logic and user interface  
-  - `PlayerMode` manages manual player control  
-  - `Maze` handles grid and data logic
+- ✅ **Optical Effects**  
+  - Colored messages using ANSI escape codes (RED, CYAN) for feedback
 
-- **Encapsulation**  
-  - Cell properties are accessed through getters
+- ✅ **Obstacle/Boundary Detection**  
+  - Prevents invalid moves with clear messages
 
----
+- ✅ **Teleportation Mechanism**
+  - Only possible between opposite corners if unobstructed
 
-### 💬 User Experience
+- ✅ **Endgame Recognition**
+  - Automatically detects when player reaches the goal and displays full path
 
-- Clear menus and instructions  
-- Friendly error handling and prompts  
-- Axis labeling to assist movement  
-- Option to quit (`q`) or restart (`y/n`) at key stages
-- Includes optical effects for better user experience
+- ✅ **Dynamic Display System**
+  - `Maze` class uses overloaded `printMaze(...)` and `printMazeWithPath(...)` methods for various visualizations
 
 ---
+## ▶️ How to Compile & Run
+To run the project from terminal:
 
-### 📦 Summary Table
+### 🔧 Compile
 
-| Category           | Features |
-|--------------------|----------|
-| 🔍 Algorithms       | UCS, A\*, with cost and time tracking |
-| 🎮 Gameplay         | Manual movement mode with feedback |
-| 🔁 Game Flow        | Play again with same or new maze |
-| 🧱 Structure        | Method overloading, modular code |
-| 📊 Output           | Path display, stats, step tracking |
-| 🛠️ Technology       | Pure Java, interactive CLI |
-
----
-
-## ▶️ How to Run
+Compile all `.java` files:
 
 ```bash
-javac *.java
-java RobotMaze
+javac src/maze/*.java src/solver/*.java src/core/*.java
+```
+### 🚀 Run
+Choose one of the following modes:
+
+🧠 Run with Solvers (UCS / A*)
+```bash
+java -cp src core.RobotMaze
+```
+🎮 Run the Maze Game (Manual Player Mode with Levels)
+
+```bash
+java -cp src core.Game
+```
+## 📂 Project Structure
+```bash
+src/
+├── core/
+│ ├── PlayerMode.java // Manual movement logic
+│ └── RobotMaze.java // Main interface & algorithm selection
+│
+├── maze/
+│ ├── Cell.java // Grid cell definition
+│ ├── Maze.java // Maze generation and utilities
+│ └── Node.java // Helper for search algorithms
+│
+├── solver/
+├── AStar.java // A* algorithm implementation
+└── UCS.java // Uniform Cost Search implementation
