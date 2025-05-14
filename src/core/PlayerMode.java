@@ -95,15 +95,19 @@ public class PlayerMode {
 
 			if (newX >= 0 && newX < maze.getSize() && newY >= 0 && newY < maze.getSize()) {
 				Cell nextCell = maze.getCell(newX, newY);
-				if (!nextCell.getObstacle()) {
-					current = nextCell;
-					path.add(current);
-					steps++;
-				} else {
-					System.out.println(RED);
-					System.out.println("--- Obstacle! Cannot move there. ---\n");
-					System.out.println(RESET);
-				}
+				if (nextCell.equals(goal)) {
+			        current = nextCell;
+			        path.add(current);
+			        steps++;
+			    }else if (!nextCell.getObstacle()) {
+			        current = nextCell;
+			        path.add(current);
+			        steps++;
+			    }else {
+			            System.out.println(RED);
+			            System.out.println("--- Obstacle! Cannot move there. ---\n");
+			            System.out.println(RESET);
+			    }
 			} else {
 				System.out.println(RED);
 				System.out.println("--- Out of bounds! Try a different direction. ---\n");

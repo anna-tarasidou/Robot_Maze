@@ -9,7 +9,7 @@ public class Game {
     public static void main(String[] args) {
         System.out.println("Welcome to Maze Game!");
 
-        int totalPoints = 0; // Αρχικοποιούμε το σκορ του παίκτη
+        int totalPoints = 0; 
 
         for (int level = 1; level <= 3; level++) {
             System.out.println("\n--- Level " + level + " ---");
@@ -31,9 +31,8 @@ public class Game {
                 break;
             }
 
-            // Υπολογίζουμε πόντους ανάλογα με τα βήματα
-            int points = playerMode.getSteps(); // Κάθε βήμα κοστίζει -1 πόντο, με μέγιστο 100 πόντους
-            totalPoints += points; // Προσθέτουμε πόντους στο συνολικό σκορ
+            int points = playerMode.getSteps(); 
+            totalPoints += points; 
 
             System.out.println("\nLevel " + level + " complete! You earned " + points + " points.");
         }
