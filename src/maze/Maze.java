@@ -12,6 +12,7 @@ public class Maze{
 	
 	public static final String YELLOW = "\u001B[33m";
 	public static final String RED = "\u001B[31m";
+	public static final String BLUE = "\u001B[34m";
 	public static final String RESET = "\u001B[0m";
 
 	public Maze(int N, double p){
@@ -48,9 +49,9 @@ public class Maze{
 			for (int j = 0; j < N; j++) {
 				String symbol;
 				if (start != null && start.getX() == i && start.getY() == j) {
-					symbol = "S";
+					symbol = BLUE + "  S" + RESET;
 				} else if (goal != null && goal.getX() == i && goal.getY() == j) {
-					symbol = "G";
+					symbol = BLUE + "  G" + RESET;
 				} else if (maze[i][j].getObstacle()) {
 					symbol = "1";
 				} else {
@@ -79,9 +80,9 @@ public class Maze{
 				if (current != null && current.getX() == i && current.getY() == j) {
 					symbol = YELLOW + "  R" + RESET;
 				} else if (start != null && start.getX() == i && start.getY() == j) {
-					symbol = "S";
+					symbol = BLUE + "  S" + RESET;
 				} else if (goal != null && goal.getX() == i && goal.getY() == j) {
-					symbol = "G";
+					symbol = BLUE + "  G" + RESET;
 				} else if (maze[i][j].getObstacle()) {
 					symbol = "1";
 				} else {
@@ -115,9 +116,9 @@ public class Maze{
 			for (int j = 0; j < N; j++) {
 				String symbol;
 				if (start != null && start.getX() == i && start.getY() == j) {
-					symbol = "S";
+					symbol = BLUE + " S" + RESET;
 				} else if (goal != null && goal.getX() == i && goal.getY() == j) {
-					symbol = "G";
+					symbol = BLUE + " G" + RESET;
 				} else if (pathSet.contains(i + "," + j)) {
 					symbol = RED + " *" + RESET;
 				} else if (maze[i][j].getObstacle()) {
@@ -156,9 +157,9 @@ public class Maze{
 				if (current != null && current.getX() == i && current.getY() == j) {
 					symbol = YELLOW + " R" + RESET;
 				} else if (start != null && start.getX() == i && start.getY() == j) {
-					symbol = "S";
+					symbol = BLUE + " S" + RESET;
 				} else if (goal != null && goal.getX() == i && goal.getY() == j) {
-					symbol = "G";
+					symbol = BLUE + " G" + RESET;
 				} else if (pathSet.contains(i + "," + j)) {
 					symbol = RED + " *" + RESET;
 				} else if (maze[i][j].getObstacle()) {
