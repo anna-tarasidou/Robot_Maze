@@ -1,4 +1,4 @@
-//TARASIDOU ANNA 
+//ANNA TARASIDOU
 package maze;
 
 public class Cell{
@@ -27,7 +27,4 @@ public class Cell{
 		this.isObstacle = obstacle;
 	}
 	
-	public String toString(){
-		return "EIMAI CELL";
-	}
 }

@@ -1,4 +1,4 @@
-//TARASIDOU ANNA 
+//ANNA TARASIDOU
 package maze;
 
 public class Node implements Comparable<Node> {

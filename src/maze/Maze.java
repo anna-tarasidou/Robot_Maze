@@ -1,4 +1,4 @@
-//TARASIDOU ANNA 
+//ANNA TARASIDOU
 package maze;
 
 import java.util.*;
@@ -173,25 +173,28 @@ public class Maze{
 		}
 	}
 
-
 	public int heuristic(Cell current, Cell goal) {
-		int dx = current.getX() - goal.getX();
-		if (dx < 0) 
-			dx = -dx;
-		
-		int dy = current.getY() - goal.getY();
-		if (dy < 0) 
-			dy = -dy;
+	    Cell A = maze[N - 1][0];
+	    Cell B = maze[0][N - 1];
 
-		if (dx == 0 && dy == 0) {
-			return 0;
-		} else if (dx == 0 || dy == 0 || dx == dy) {
-			return 1;
-		} else if (dx == dy + 1 || dy == dx + 1) {
-			return 2;
-		} else {
-			return 4;
-		}
+	    int dx = Math.abs(current.getX() - goal.getX());
+	    int dy = Math.abs(current.getY() - goal.getY());
+	    int baseCost = Math.max(dx, dy);
+
+	    int viaAB = Integer.MAX_VALUE;
+	    int viaBA = Integer.MAX_VALUE;
+
+	    if (!A.getObstacle() && !B.getObstacle()) {
+	        int toA = Math.max(Math.abs(current.getX() - A.getX()), Math.abs(current.getY() - A.getY()));
+	        int fromB = Math.max(Math.abs(B.getX() - goal.getX()), Math.abs(B.getY() - goal.getY()));
+	        viaAB = toA + 2 + fromB;
+
+	        int toB = Math.max(Math.abs(current.getX() - B.getX()), Math.abs(current.getY() - B.getY()));
+	        int fromA = Math.max(Math.abs(A.getX() - goal.getX()), Math.abs(A.getY() - goal.getY()));
+	        viaBA = toB + 2 + fromA;
+	    }
+
+	    return Math.min(baseCost, Math.min(viaAB, viaBA));
 	}
 	
 	public UCS UniformCostSearch(Cell start, Cell goal){
